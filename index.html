@@ -24,7 +24,27 @@
   --accent3:#F0D5B5;
   --glow:rgba(230,198,163,0.15);
 }
-html{scroll-behavior:smooth;}
+html{
+  scroll-behavior:smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-h) var(--bg);
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-h);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
 body{
   background:transparent;
   color:var(--text);
