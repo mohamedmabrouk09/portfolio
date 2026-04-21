@@ -190,27 +190,43 @@ footer span{color:var(--accent);}
   .nav-links.active li:nth-child(4){transition-delay:0.4s;}
   .nav-links.active li:nth-child(5){transition-delay:0.5s;}
   .nav-links a{font-size:1.6rem;}
-  #hero,section{padding:5.5rem 1.75rem;}
+  #hero,section{padding:5.5rem 1.25rem;}
+  #hero{background:rgba(5,5,5,0.75)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;}
   .about-grid{grid-template-columns:1fr;gap:3rem;}
   .proj-grid{grid-template-columns:1fr;}
   .pc.feat{grid-column:span 1;}
   .exp-card{padding:1.5rem;margin-top:2rem;}
   .exp-card::after{display:none;}
   footer{flex-direction:column;gap:1.2rem;text-align:center;padding:2rem 1.5rem;}
-  .hero-name{font-size:clamp(3rem, 12vw, 4.5rem);}
-  .hero-sub{margin-bottom:2rem;}
+  .hero-name{font-size:clamp(2.2rem, 9vw, 3.5rem);}
+  .hero-sub{margin-bottom:2rem;font-size:0.95rem;}
   .hero-actions{flex-direction:column;align-items:stretch;}
   .btn-p, .btn-s{justify-content:center;}
   .fact-cards{gap:0.6rem;}
   .pc{padding:1.5rem;}
 }
 @media(max-width:480px){
-  .s-title{font-size:2.2rem;}
+  .s-title{font-size:1.85rem;}
   .pc-top{flex-direction:column;gap:0.75rem;}
 }
 </style>
 </head>
 <body>
+
+<!-- STATIC TEASER (WITH ANIMATIONS) -->
+<div id="teaser-screen" style="position:fixed;inset:0;background:#050505;z-index:100000;display:flex;flex-direction:column;justify-content:center;align-items:center;transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; padding: 1.5rem;">
+  <div style="position:absolute;top:2rem;left:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#A3A3A3;letter-spacing:0.1em;opacity:0;animation:fadeIn 1s forwards;">
+    &gt; SYSTEM.MOUNT("/DEV/PORTFOLIO")<br>
+    &gt; STATUS: 200 OK
+  </div>
+  <div style="text-align:center;font-family:'Syne',sans-serif;font-weight:800;line-height:0.95;letter-spacing:-0.03em;opacity:0;animation:slideUp 0.8s 0.3s forwards;">
+    <div style="font-size:clamp(1.75rem, 7vw, 6rem);color:#FFFFFF;word-wrap:break-word;">SOME WAIT FOR THE FUTURE.</div>
+    <div style="font-size:clamp(1.75rem, 7vw, 6rem);color:var(--accent);word-wrap:break-word;">I COMPILE IT.</div>
+  </div>
+  <div style="position:absolute;bottom:2rem;right:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#A3A3A3;letter-spacing:0.1em;text-align:right;opacity:0;animation:fadeIn 1s 0.8s forwards;">
+    READY.
+  </div>
+</div>
 
 <canvas id="three-canvas"></canvas>
 
@@ -781,12 +797,27 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     camera.position.y += (0 - camera.position.y) * 0.05;
     
     // Zoom in dramatically on scroll
-    camera.position.z = 10 - (scrollProgress * 8);
+    const baseZoom = window.innerWidth < 960 ? 13 : 10;
+    camera.position.z = baseZoom - (scrollProgress * 8);
 
     composer.render();
   }
   anim();
 })();
+
+// ── TEASER LIFT-OFF LOGIC ───────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  // Hold the frame for ~2.8 seconds so it can be fully read, then smoothly fade and lift away
+  setTimeout(() => {
+    const teaser = document.getElementById('teaser-screen');
+    if (teaser) {
+      teaser.style.opacity = '0';
+      teaser.style.transform = 'translateY(-30px)';
+      // Completely remove from DOM flow after transition finishes
+      setTimeout(() => { teaser.style.display = 'none'; }, 800);
+    }
+  }, 2800);
+});
 </script>
 </body>
 </html>
