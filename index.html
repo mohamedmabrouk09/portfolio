@@ -63,6 +63,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 4rem;display:
 .nav-cta{padding:.45rem 1.15rem!important;border:1px solid var(--border)!important;border-radius:6px;background:var(--surface)!important;color:var(--text-bright)!important;transition:all .25s!important;}
 .nav-cta:hover{border-color:var(--accent)!important;background:var(--glow)!important;color:var(--accent)!important;box-shadow:0 0 15px rgba(56,189,248,0.2);}
 .nav-cta::after{display:none!important;}
+/* MOBILE MENU */
+.menu-btn{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:0.5rem;margin-right:-0.5rem;}
+.menu-btn .bar{width:26px;height:2px;background:var(--text-bright);transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);border-radius:2px;}
+.menu-open .menu-btn .bar:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--accent);}
+.menu-open .menu-btn .bar:nth-child(2){opacity:0;}
+.menu-open .menu-btn .bar:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--accent);}
 /* HERO */
 #hero{min-height:100vh;display:flex;align-items:center;padding:0 4rem;position:relative;}
 .hero-content{position:relative;z-index:2;max-width:660px;}
@@ -172,13 +178,35 @@ footer p{font-size:.77rem;color:var(--text-muted);}
 footer span{color:var(--accent);}
 /* RESPONSIVE */
 @media(max-width:960px){
-  nav{padding:1rem 1.75rem;}
-  .nav-links{display:none;}
-  #hero,section{padding-left:1.75rem;padding-right:1.75rem;}
-  .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+  nav{padding:1rem 1.5rem;}
+  .menu-btn{display:flex;}
+  .nav-links{position:fixed;top:0;right:-100%;width:100vw;height:100vh;background:rgba(5,5,5,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);flex-direction:column;justify-content:center;transition:right 0.4s cubic-bezier(0.77, 0, 0.175, 1);z-index:1000;}
+  .nav-links.active{right:0;}
+  .nav-links li{margin:1.5rem 0;opacity:0;transform:translateY(20px);transition:all 0.4s ease;}
+  .nav-links.active li{opacity:1;transform:translateY(0);}
+  .nav-links.active li:nth-child(1){transition-delay:0.1s;}
+  .nav-links.active li:nth-child(2){transition-delay:0.2s;}
+  .nav-links.active li:nth-child(3){transition-delay:0.3s;}
+  .nav-links.active li:nth-child(4){transition-delay:0.4s;}
+  .nav-links.active li:nth-child(5){transition-delay:0.5s;}
+  .nav-links a{font-size:1.6rem;}
+  #hero,section{padding:5.5rem 1.75rem;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
   .proj-grid{grid-template-columns:1fr;}
   .pc.feat{grid-column:span 1;}
-  footer{flex-direction:column;gap:.4rem;text-align:center;padding:1.5rem;}
+  .exp-card{padding:1.5rem;margin-top:2rem;}
+  .exp-card::after{display:none;}
+  footer{flex-direction:column;gap:1.2rem;text-align:center;padding:2rem 1.5rem;}
+  .hero-name{font-size:clamp(3rem, 12vw, 4.5rem);}
+  .hero-sub{margin-bottom:2rem;}
+  .hero-actions{flex-direction:column;align-items:stretch;}
+  .btn-p, .btn-s{justify-content:center;}
+  .fact-cards{gap:0.6rem;}
+  .pc{padding:1.5rem;}
+}
+@media(max-width:480px){
+  .s-title{font-size:2.2rem;}
+  .pc-top{flex-direction:column;gap:0.75rem;}
 }
 </style>
 </head>
@@ -193,7 +221,10 @@ footer span{color:var(--accent);}
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">MM<span>.</span></a>
-  <ul class="nav-links">
+  <div class="menu-btn" id="menu-btn">
+    <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+  </div>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -480,6 +511,20 @@ footer span{color:var(--accent);}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 
 <script>
+// ── MOBILE MENU ─────────────────────────────────────────────────────────────
+const menuBtn = document.getElementById('menu-btn');
+const navLinks = document.getElementById('nav-links');
+menuBtn.addEventListener('click', () => {
+  document.body.classList.toggle('menu-open');
+  navLinks.classList.toggle('active');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.body.classList.remove('menu-open');
+    navLinks.classList.remove('active');
+  });
+});
+
 // ── CURSOR ──────────────────────────────────────────────────────────────────
 const cur = document.getElementById('cur');
 const curRing = document.getElementById('cur-ring');
@@ -551,7 +596,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   if (!window.THREE) return;
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
   
   // Base background color, allowing bloom to function optimally
@@ -560,9 +605,10 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x050505, 0.04);
 
+  const isMobile = window.innerWidth < 960;
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.z = 10;
-  camera.position.x = -2.5;
+  camera.position.x = isMobile ? 0 : -2.5;
 
   // Render Pass
   const renderScene = new THREE.RenderPass(scene, camera);
@@ -729,7 +775,8 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
     // Camera Parallax & Scroll Integration
     // As you scroll, camera moves from side bias to center, and pushes inside the object
-    const targetX = -2.5 * (1 - scrollProgress);
+    const baseOffsetX = window.innerWidth < 960 ? 0 : -2.5;
+    const targetX = baseOffsetX * (1 - scrollProgress);
     camera.position.x += (targetX - camera.position.x) * 0.05;
     camera.position.y += (0 - camera.position.y) * 0.05;
     
