@@ -49,6 +49,10 @@ body::after{
 #cur{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen;}
 #cur-ring{width:34px;height:34px;border:1px solid rgba(255,69,0,0.35);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .15s,height .15s,border-color .15s;}
 .hoverable:hover~body #cur{width:20px;height:20px;}
+@media (hover: none) and (pointer: coarse), (max-width: 960px) {
+  #cur, #cur-ring { display: none !important; }
+  body { cursor: auto; }
+}
 /* SCROLL PROGRESS */
 #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));z-index:1000;width:0%;transition:width .08s linear;box-shadow:0 0 10px var(--accent);}
 /* NAV */
