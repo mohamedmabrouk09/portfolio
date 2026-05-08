@@ -160,11 +160,19 @@ section{padding:4.5rem 4rem;position:relative;background:rgba(5,5,5,0.7);backdro
 .chip.hi2{border-color:rgba(209, 179, 145,.25);color:var(--accent2);background:rgba(209, 179, 145,.06);}
 /* PROJECTS */
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.35rem;max-width:1200px;margin:3rem auto 0;}
-.pc{background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);border-radius:16px;padding:2rem;transition:all .35s;position:relative;overflow:hidden;}
+.pc{background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);border-radius:16px;padding:2rem;transition:all .35s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:1.5rem;}
 .pc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s;}
 .pc:hover{border-color:rgba(230, 198, 163,.22);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px rgba(230, 198, 163,.08);background:rgba(18,18,18,0.95);}
 .pc:hover::before{opacity:1;}
 .pc.feat{grid-column:span 2;}
+@media(min-width: 960px) {
+  .pc.feat { flex-direction:row; align-items:center; }
+  .pc.feat .pc-content { flex: 1; padding-right: 1.5rem; }
+  .pc.feat .pc-visual { flex: 1.2; height: 100%; min-height: 280px; }
+}
+.pc-visual { background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.04); border-radius:12px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; min-height: 200px; width:100%; }
+.visual-placeholder { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-muted); text-align:center; padding:2rem; border:1px dashed rgba(255,255,255,0.1); border-radius:8px; width:calc(100% - 2rem); height:calc(100% - 2rem); display:flex; align-items:center; justify-content:center; }
+.pc-actions { margin-top: 1.5rem; display:flex; gap: 0.75rem; }
 .pc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.9rem;}
 .pc-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--text-bright);}
 .pc.feat .pc-name{font-size:1.75rem;}
@@ -182,6 +190,27 @@ section{padding:4.5rem 4rem;position:relative;background:rgba(5,5,5,0.7);backdro
 .pc-desc{color:var(--text);font-size:.88rem;line-height:1.72;margin-bottom:1.4rem;font-weight:300;}
 .pc-tech{display:flex;flex-wrap:wrap;gap:.35rem;}
 .tt{padding:.18rem .55rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:4px;font-size:.67rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;}
+/* PHILOSOPHY & TERMINAL */
+.phil-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1.5rem;max-width:1200px;margin:3rem auto 0;}
+.phil-card{background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);border-radius:16px;padding:2rem;transition:all .35s;}
+.phil-card:hover{border-color:rgba(230, 198, 163,.22);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px rgba(230, 198, 163,.08);background:rgba(18,18,18,0.95);}
+.phil-icon{width:45px;height:45px;background:rgba(230, 198, 163, 0.08);border:1px solid rgba(230, 198, 163, 0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;color:var(--accent);box-shadow:0 0 10px rgba(230, 198, 163,0.15);}
+.phil-title{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--text-bright);margin-bottom:.8rem;}
+.phil-desc{color:var(--text);font-size:.88rem;line-height:1.7;font-weight:300;}
+
+.term-window{background:rgba(5,5,5,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-top:2.5rem;box-shadow:0 20px 40px rgba(0,0,0,0.4);}
+.term-head{background:rgba(20,20,20,0.9);padding:0.6rem 1rem;display:flex;align-items:center;gap:0.4rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.term-dot{width:10px;height:10px;border-radius:50%;}
+.term-dot:nth-child(1){background:#ff5f56;box-shadow:0 0 6px #ff5f56;}
+.term-dot:nth-child(2){background:#ffbd2e;box-shadow:0 0 6px #ffbd2e;}
+.term-dot:nth-child(3){background:#27c93f;box-shadow:0 0 6px #27c93f;}
+.term-title{margin-left:auto;margin-right:auto;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);}
+.term-body{padding:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;}
+.term-cmd{color:var(--accent);margin-bottom:1rem;}
+.term-list{list-style:none;color:var(--text);display:flex;flex-direction:column;gap:0.8rem;}
+.term-list li{display:flex;align-items:flex-start;gap:0.75rem;}
+.term-list li::before{content:'>';color:var(--accent);font-weight:bold;}
+
 /* EXPERIENCE */
 .exp-card{max-width:900px;margin:3rem auto 0;background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);border-radius:16px;padding:2.5rem;position:relative;overflow:hidden;transition:all .3s;}
 .exp-card:hover{border-color:var(--border-h);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px rgba(230, 198, 163,.08);}
@@ -233,10 +262,19 @@ footer span{color:var(--accent);}
   .btn-p, .btn-s{justify-content:center;}
   .fact-cards{gap:0.6rem;}
   .pc{padding:1.5rem;}
+  .term-body{overflow-x:auto;}
+  #github > div > div:nth-child(2){flex-direction:column;}
+  #writing > div > a { flex-direction: column; align-items: flex-start !important; gap: 1.5rem; }
+  #writing > div > a svg { align-self: flex-end; }
+  #testimonials > div { padding: 1.5rem !important; }
 }
 @media(max-width:480px){
   .s-title{font-size:1.85rem;}
   .pc-top{flex-direction:column;gap:0.75rem;}
+  .pc-actions { flex-direction: column; }
+  .term-body{padding: 1rem; font-size: 0.75rem;}
+  .phil-grid { grid-template-columns: 1fr; }
+  .pc-visual { min-height: 200px; }
 }
 </style>
 </head>
@@ -304,7 +342,7 @@ footer span{color:var(--accent);}
         View My Work
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="mailto:mabroukmohamed193@gmail.com" class="btn-s">Get In Touch</a>
+      <a href="https://drive.google.com/file/d/1tkpoeDwRgJ2vCVZSntPBSib6khvaiQAo/view" class="btn-s" target="_blank" download>Download CV</a>
     </div>
   </div>
 
@@ -325,20 +363,33 @@ footer span{color:var(--accent);}
         <img src="Meed.jpeg" alt="Mohamed Mabrouk" class="profile-img">
       </div>
       <p>
-        I'm a <strong>software engineering student</strong> at ENSA Khouribga currently navigating the cycle d'ingénieur on a strict diet of caffeine, curiosity, and a deeply unreasonable number of side projects.
+        I’m a <strong>backend software engineer</strong> focused on distributed systems, clean architecture, and developer tooling. I don't just write code to meet requirements; I build systems that scale and tools that eliminate friction.
       </p>
       <p>
-        It started with <em>movies, books, and the audacity of imagining the future</em>. Tony Stark building things in a cave. Sci-fi cities that felt just plausible enough to chase. I didn't just want to watch that future. I wanted to build it. So I opened a code editor. And I never really closed it.
+        My journey started with a deep curiosity for how complex systems operate under the hood, which evolved into a relentless drive to architect robust solutions. Whether it's turning a 48-hour hackathon into a production-grade alerting system or engineering a CLI to automate boilerplate, I build with intention.
       </p>
       <p>
-        I gravitate toward <strong>clean architecture, scalable systems, and developer tools</strong> that make other developers' lives easier. If there's a tedious setup process somewhere, I've probably already built a CLI to kill it.
-      </p>
-      <p>
-        When I'm not in the terminal, I'm watching <strong>Real Madrid</strong> surgically dismantle someone's evening, or running coordinated flanks in <strong>Rainbow Six Siege</strong> — which has, ironically, taught me more about decision-making under pressure than any classroom ever did.
+        When I'm not in the terminal optimizing database queries, I'm analyzing tactical flanks in <strong>Rainbow Six Siege</strong>—which has taught me more about rapid decision-making under pressure than any classroom—or watching <strong>Real Madrid</strong> surgically dismantle the opposition.
       </p>
 
       <div class="quote-card">
         <p>"I learned early that not everything needs a reaction sometimes the strongest move is <span style="color:var(--accent)">patience, observation, and choosing the right moment.</span>"</p>
+      </div>
+
+      <div class="term-window reveal" style="transition-delay:.2s">
+        <div class="term-head">
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+          <div class="term-title">~/current_focus</div>
+        </div>
+        <div class="term-body">
+          <div class="term-cmd">$&gt; cat currently_exploring.txt</div>
+          <ul class="term-list">
+            <li>Advanced PostgreSQL (Query optimization, indexing strategies)</li>
+            <li>Event-Driven Architectures (Kafka, RabbitMQ)</li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -433,59 +484,109 @@ footer span{color:var(--accent);}
   <div class="proj-grid">
     <!-- SmartPager -->
     <div class="pc feat reveal">
-      <div class="pc-top">
-        <div class="pc-name">SmartPager</div>
-        <span class="badge-tag bt-hack">48h Hackathon</span>
+      <div class="pc-content">
+        <div class="pc-top">
+          <div class="pc-name">SmartPager</div>
+          <span class="badge-tag bt-hack">48h Hackathon</span>
+        </div>
+        <p class="pc-wit">// Most people sleep in 48 hours. I shipped a distributed system.</p>
+        <p class="pc-desc">
+          Built in 48 hours: a distributed incident management system with real-time detection and escalation. 
+          Designed 5+ microservices and engineered event-driven escalation handling 100+ concurrent simulated incidents with sub-second alert latency across distributed nodes. 
+          Engineered to stay resilient under failure scenarios—judges included.
+        </p>
+        <div class="pc-tech">
+          <span class="tt">Spring Boot</span><span class="tt">Microservices</span><span class="tt">Docker</span><span class="tt">Nginx</span><span class="tt">React</span><span class="tt">PostgreSQL</span><span class="tt">Mockito</span>
+        </div>
       </div>
-      <p class="pc-wit">// Most people sleep in 48 hours. I shipped a distributed system.</p>
-      <p class="pc-desc">
-        Built in 48 hours: a distributed incident management system with real-time detection and escalation. 
-        Designed 5+ microservices, handled 100+ simulated incidents, and delivered sub-second alerting with automated team notifications. 
-        Engineered to stay resilient under failure scenarios judges included.
-      </p>
-      <div class="pc-tech">
-        <span class="tt">Spring Boot</span><span class="tt">Microservices</span><span class="tt">Docker</span><span class="tt">Nginx</span><span class="tt">React</span><span class="tt">PostgreSQL</span><span class="tt">Mockito</span>
+      <div class="pc-visual">
+        <img src="incident_architecture.png" alt="SmartPager Architecture" style="width:100%; height:100%; object-fit:contain; padding:1rem;">
       </div>
     </div>
 
     <!-- SyncOS -->
     <div class="pc reveal" style="transition-delay:.1s">
-      <div class="pc-top">
-        <div class="pc-name">SyncOS</div>
-        <span class="badge-tag bt-ai">AI-Powered</span>
+      <div class="pc-content">
+        <div class="pc-top">
+          <div class="pc-name">SyncOS</div>
+          <span class="badge-tag bt-ai">AI-Powered</span>
+        </div>
+        <p class="pc-wit">// LinkedIn, but if it actually worked.</p>
+        <p class="pc-desc">
+          AI-powered job matching platform featuring a custom ranking engine processing 1,000+ candidate data points. 
+          Reduced latency through optimized PostgreSQL indexing and WebSocket streaming (&lt;200ms latency), and engineered a high-throughput recruiter dashboard managing 100+ profiles.
+        </p>
+        <div class="pc-tech">
+          <span class="tt">Java</span><span class="tt">Spring Boot</span><span class="tt">React</span><span class="tt">PostgreSQL</span><span class="tt">Docker</span><span class="tt">WebSockets</span><span class="tt">Maven</span>
+        </div>
       </div>
-      <p class="pc-wit">// LinkedIn, but if it actually worked.</p>
-      <p class="pc-desc">
-        AI-powered job matching platform with a custom ranking engine processing 1,000+ candidate-job matches. 
-        Built 10+ backend endpoints, enabled real-time messaging via WebSockets (&lt;200ms latency), and designed a recruiter dashboard managing 100+ profiles efficiently.
-      </p>
-      <div class="pc-tech">
-        <span class="tt">Java</span><span class="tt">Spring Boot</span><span class="tt">React</span><span class="tt">PostgreSQL</span><span class="tt">Docker</span><span class="tt">WebSockets</span><span class="tt">Maven</span>
+      <div class="pc-visual">
+        <img src="Recruterdash.png" alt="SyncOS Dashboard" style="width:100%; height:100%; object-fit:contain; padding:1rem;">
       </div>
     </div>
 
     <!-- ArchiGen -->
     <div class="pc reveal" style="transition-delay:.15s">
-      <div class="pc-top">
-        <div class="pc-name">ArchiGen</div>
-        <span class="badge-tag bt-tool">Dev Tool</span>
+      <div class="pc-content">
+        <div class="pc-top">
+          <div class="pc-name">ArchiGen</div>
+          <span class="badge-tag bt-tool">Dev Tool</span>
+        </div>
+        <p class="pc-wit">// Because setting up Clean Architecture by hand is a war crime.</p>
+        <p class="pc-desc">
+          CLI tool generating full Spring Boot Clean Architecture projects. 
+          Automated the generation of 30+ boilerplate files, reducing microservice scaffolding time from hours to &lt;5 seconds and standardizing project structure across teams. 
+          Built with pure Java, PicoCLI, and FreeMarker — no frameworks, just control.
+        </p>
+        <div class="pc-tech">
+          <span class="tt">Java</span><span class="tt">PicoCLI</span><span class="tt">FreeMarker</span><span class="tt">Maven</span>
+        </div>
+        <div class="pc-actions">
+          <a href="#" class="btn-s" style="padding:0.4rem 1rem; font-size:0.75rem;">View CLI Demo</a>
+        </div>
       </div>
-      <p class="pc-wit">// Because setting up Clean Architecture by hand is a war crime.</p>
-      <p class="pc-desc">
-        CLI tool generating full Spring Boot Clean Architecture projects in &lt;5 seconds. 
-        Auto-creates 30+ files (layers, configs, templates), reducing setup time by ~90% and standardizing project structure across teams. 
-        Built with pure Java, PicoCLI, and FreeMarker — no frameworks, just control.
-      </p>
-      <div class="pc-tech">
-        <span class="tt">Java</span><span class="tt">PicoCLI</span><span class="tt">FreeMarker</span><span class="tt">Maven</span>
+      <div class="pc-visual">
+        <img src="archigenterminal.png" alt="ArchiGen CLI Demo" style="width:100%; height:100%; object-fit:contain; padding:1rem;">
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGINEERING PHILOSOPHY -->
+<section id="philosophy">
+  <div class="s-label">04 — Engineering Philosophy</div>
+  <h2 class="s-title reveal">How I Think.</h2>
+  
+  <div class="phil-grid">
+    <div class="phil-card reveal">
+      <div class="phil-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="phil-title">Build for Failure</div>
+      <div class="phil-desc">Distributed systems fail. I engineer my backends to ensure they fail gracefully, degrade predictably, and recover automatically. Reliability is a feature.</div>
+    </div>
+    
+    <div class="phil-card reveal" style="transition-delay:.1s">
+      <div class="phil-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div class="phil-title">DX is a Priority</div>
+      <div class="phil-desc">If a setup process takes an hour, I'll write a CLI to do it in 5 seconds. Friction is the enemy of velocity, and tooling should enable engineers, not block them.</div>
+    </div>
+    
+    <div class="phil-card reveal" style="transition-delay:.2s">
+      <div class="phil-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div class="phil-title">Boring Tech > Hype</div>
+      <div class="phil-desc">I use the right tool for the job. Often, that's PostgreSQL and a well-structured Spring Boot app, not the newest flashy framework. Architecture over trends.</div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <div class="s-label">04 — Experience</div>
+  <div class="s-label">05 — Experience</div>
   <h2 class="s-title reveal">Where I've put<br>it all to use.</h2>
 
   <div class="exp-card reveal">
@@ -511,10 +612,48 @@ footer span{color:var(--accent);}
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="s-label">06 — Testimonials</div>
+  <h2 class="s-title reveal">Don't just take<br>my word for it.</h2>
+  <div class="reveal" style="max-width:900px;margin:3rem auto 0;background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);border-radius:16px;padding:2.5rem;position:relative;">
+    <svg style="position:absolute;top:1rem;left:1.5rem;opacity:0.1;width:60px;height:60px;color:var(--accent);" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+    <p style="font-size:1.1rem;line-height:1.7;color:var(--text-bright);font-weight:500;font-style:italic;position:relative;z-index:2;margin-bottom:1.5rem;">"Mohamed operates at a level far beyond a typical student. His ability to architect and deliver a functional backend system during his internship was exceptional."</p>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <div>
+        <div style="font-weight:700;color:var(--text-bright);font-size:0.9rem;">M. Elkhallidi</div>
+        <div style="font-size:0.75rem;color:var(--accent);">Software Engineering Manager @ UM6P</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="s-label">07 — Writing</div>
+  <h2 class="s-title reveal">Thinking out<br>loud.</h2>
+  <div class="reveal" style="max-width:1200px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1rem;">
+    <a href="https://dev.to/mohamed_mabrouk_3b0bf0385/from-0-to-production-in-48-hours-architecting-smartpager-2h25" target="_blank" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .3s;" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateX(5px)';" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateX(0)';">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent);margin-bottom:0.4rem;">MAY 12, 2026</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--text-bright);">From 0 to Production in 48 Hours: Architecting SmartPager</div>
+      </div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="https://dev.to/mohamed_mabrouk_3b0bf0385/stop-writing-boilerplate-building-a-java-cli-for-clean-architecture-471m" target="_blank" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .3s;" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateX(5px)';" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateX(0)';">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent);margin-bottom:0.4rem;">MAY 02, 2026</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--text-bright);">Stop writing boilerplate: Building a Java CLI for Clean Architecture</div>
+      </div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
-    <div class="s-label" style="justify-content:center">05 — Contact</div>
+    <div class="s-label" style="justify-content:center">08 — Contact</div>
     <h2 class="s-title reveal">Let's build<br>something great.</h2>
 
     <p class="contact-sub reveal">
